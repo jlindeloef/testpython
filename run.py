@@ -25,12 +25,11 @@ class Battleship:
         self.board = board
 
     def create_ships(self):
-        for i in range(4):
-            self.x_row, self.y_column = randint(0, 4), randint(0, 4)
-        while self.board[self.x_row][self.y_column] == "X":
-            self.x_row, self.y_column = randint(0, 4), randint(0, 4)
-            self.board[self.x_row][self.y_column] = "X"
-        return self.board
+        for ship in range(5):
+            ship_r, ship_cl = randint(0, 4), randint(0, 4)
+            while self.board[ship_r][ship_cl] == 'X':
+                ship_r, ship_cl = randint(0, 4), randint(0, 4)
+            self.board[ship_r][ship_cl] = 'X'
 
     def get_user_input(self):
         try:
@@ -38,7 +37,6 @@ class Battleship:
             while x_row not in '12345':
                 print('Not an appropriate choice, please select a valid row')
                 x_row = input("Enter the row of the ship: ")
-
             y_column = input("Enter the column letter of the ship: ").upper()
             while y_column not in "ABCDE":
                 print('Not a valid choice, please select a valid column')
@@ -47,7 +45,7 @@ class Battleship:
                 GameBoard.get_letters_to_numbers(self)[y_column]
         except ValueError and KeyError:
             print("Not a valid input")
-        return self.get_user_input()
+            return self.get_user_input()
 
     def count_hit_ships(self):
         hit_ships = 0
@@ -83,19 +81,23 @@ def RunGame():
             # check for win or lose
         if Battleship.count_hit_ships(user_guess_board) == 5:
             print("You hit all 5 battleships!")
-            break
+            GameOver()
         else:
             turns -= 1
             print(f"You have {turns} turns remaining")
             if turns == 0:
                 print('Game Over ')
-                allowed_inputs = "yYnN"
-                user_input = input("Play again (Y/N)? ")
-                if user_input == "Y" or user_input == "y":
-                    RunGame()
-                if user_input == "N" or user_input == "n":
-                    print("Thank you for playing")
-                break
+                GameOver()
+
+
+def GameOver():
+    allowed_inputs = "yYnN"
+    user_input = input("Play again (Y/N)? ")
+    if user_input == "Y" or user_input == "y":
+        RunGame()
+    if user_input == "N" or user_input == "n":
+        print("Thank you for playing")
+        exit()
 
 
 if __name__ == '__main__':
