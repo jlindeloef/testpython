@@ -26,9 +26,9 @@ class Battleship:
 
     def create_ships(self):
         for i in range(5):
-            self.x_row, self.y_column = randint(0, 7), randint(0, 7)
+            self.x_row, self.y_column = randint(0, 4), randint(0, 4)
         while self.board[self.x_row][self.y_column] == "X":
-            self.x_row, self.y_column = randint(0, 7), randint(0, 7)
+            self.x_row, self.y_column = randint(0, 4), randint(0, 4)
             self.board[self.x_row][self.y_column] = "X"
         return self.board
 
@@ -88,8 +88,13 @@ def RunGame():
             turns -= 1
             print(f"You have {turns} turns remaining")
             if turns == 0:
-                print("Sorry you ran out of turns")
-                GameBoard.print_board(user_guess_board)
+                print('Game Over ')
+                allowed_inputs = "yYnN"
+                user_input = input("Play again (Y/N)? ")
+                if user_input == "Y" or user_input == "y":
+                    RunGame()
+                if user_input == "N" or user_input == "n":
+                    print("Bye...")
                 break
 
 
