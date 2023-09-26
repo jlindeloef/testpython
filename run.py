@@ -29,7 +29,7 @@ class Battleship:
             self.x_row, self.y_column = randint(0, 7), randint(0, 7)
         while self.board[self.x_row][self.y_column] == "X":
             self.x_row, self.y_column = randint(0, 7), randint(0, 7)
-        self.board[self.x_row][self.y_column] = "X"
+            self.board[self.x_row][self.y_column] = "X"
         return self.board
 
     def get_user_input(self):
@@ -58,7 +58,7 @@ class Battleship:
         return hit_ships
 
 
-def RunGame(): 
+def RunGame():
     computer_board = GameBoard([[" "] * 5 for i in range(5)])
     user_guess_board = GameBoard([[" "] * 5 for i in range(5)])
     Battleship.create_ships(computer_board)
